@@ -20,21 +20,30 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+//!PARAM radius
+//!DESC Clipping Radius
+//!TYPE int
+//!MINIMUM 1
+//!MAXIMUM 7
+2
+
 //!HOOK POSTKERNEL
 //!BIND POSTKERNEL
 //!BIND PREKERNEL
 //!DESC Pixel Clipper (Anti-Ringing)
 //!WHEN POSTKERNEL.w PREKERNEL.w / 1.000 > POSTKERNEL.h PREKERNEL.h / 1.000 > *
 vec4 hook() {
-    //Sample 3x3 low-res pixel cluster around high-res pixel
+    //Sample 5x5 low-res pixel cluster around high-res pixel
     vec4 min_pix = PREKERNEL_texOff(0);
     vec4 max_pix = min_pix;
     vec4 cur_pix;
-    for (int y = -1; y < 2; y++) {
-        for (int x = -1; x < 2; x++) {
-            cur_pix = PREKERNEL_texOff(vec2(y, x));
-            min_pix = min(min_pix, cur_pix);
-            max_pix = max(max_pix, cur_pix);
+    for (int y = -radius; y <= radius; y++) {
+        for (int x = -radius; x <= radius; x++) {
+            if (abs(x*y) <= radius) {
+                cur_pix = PREKERNEL_texOff(vec2(y, x));
+                min_pix = min(min_pix, cur_pix);
+                max_pix = max(max_pix, cur_pix);
+            }
         }
     }
 

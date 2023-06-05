@@ -13,5 +13,7 @@ glsl-shader="path/to/shader/pixel-clipper.glsl"
 ```
 The examples above uses "sinc2" because it's the sharpest option, but feel free to change this into a different filter if you prefer a softer result.
 
+You can also control the radius of the clipping windows with `--glsl-shader-opts=radius=value`, which accepts integers between `[1, 7]` and defaults to `2`.
+
 ## Example
 ![Pixel Clipper Example](./example.png "Pixel Clipper Example")
