@@ -27,6 +27,13 @@
 //!MAXIMUM 7
 2
 
+//!PARAM strength
+//!DESC Clipping Strength
+//!TYPE float
+//!MINIMUM 0.0
+//!MAXIMUM 1.0
+1.0
+
 //!HOOK POSTKERNEL
 //!BIND POSTKERNEL
 //!BIND PREKERNEL
@@ -49,8 +56,9 @@ vec4 hook() {
 
     //Sample current high-res pixel
     vec4 hr_pix = POSTKERNEL_texOff(0);
+    vec4 clipped;
     
     // Clamp the intensity so it doesn't ring
-    hr_pix = clamp(hr_pix, min_pix, max_pix);
-    return hr_pix;
+    clipped = clamp(hr_pix, min_pix, max_pix);
+    return mix(hr_pix, clipped, strength);
 }
