@@ -39,7 +39,7 @@ vec4 hook() {
     vec4 cur_pix;
     for (int y = -radius; y <= radius; y++) {
         for (int x = -radius; x <= radius; x++) {
-            if (abs(x*y) <= radius) {
+            if (abs(x*x + y*y) <= radius*radius) {
                 cur_pix = PREKERNEL_texOff(vec2(y, x));
                 min_pix = min(min_pix, cur_pix);
                 max_pix = max(max_pix, cur_pix);
