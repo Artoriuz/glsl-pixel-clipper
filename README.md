@@ -5,7 +5,7 @@ This is a simple pixel clipper for mpv. You can use alongside resampling filters
 
 ## Instructions
 Add something like this to your mpv config:
-```
+```c
 profile=gpu-hq
 scale=sinc
 scale-radius=2
