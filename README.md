@@ -17,8 +17,10 @@ The examples above uses "sinc2" because it's the sharpest option, but feel free 
 
 ## Inputs
 You can set the following parameters:
-- radius: Controls the radius of the clipping window. Accepts integers between `[1, 7]`, defaults to `2`.
-- strength: Controls the strength of the clipping. Accepts floats between `[0.0, 1.0]`, defaults to `1.0` (100% strength).
+- `radius`: Controls the radius of the clipping window. Accepts integers between `[1, 7]`, defaults to `2`.
+- `strength`: Controls the strength of the clipping. Accepts floats between `[0.0, 1.0]`, defaults to `1.0` (100% strength).
+
+On `vo=gpu-next`, you can set these settings with `--glsl-shader-opts=param1=value1`.
 
 ## Example
 ![Pixel Clipper Example](./example.png "Pixel Clipper Example")
