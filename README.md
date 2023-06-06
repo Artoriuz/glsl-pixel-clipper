@@ -13,7 +13,7 @@ scale=sinc
 scale-radius=2
 glsl-shader="path/to/shader/pixel-clipper.glsl"
 ```
-The examples above uses "sinc2" because it's the sharpest option, but feel free to change this into a different filter if you prefer a softer result.
+The example above uses "sinc2" because it's the sharpest option, but feel free to change this into a different filter if you prefer a softer result.
 
 ## Inputs
 You can set the following parameters:
