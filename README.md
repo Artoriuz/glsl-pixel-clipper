@@ -5,14 +5,15 @@ This is a simple pixel clipper for mpv. You can use it alongside resampling filt
 
 The main difference between this and the built-in anti-ringing functionality is that this shader works with polar filters.
 
+Use the 12-tap variant for any filter with radius greater than 2. 
+
 ## Instructions
 Add something like this to your mpv config:
 ```c
 profile=gpu-hq
 scale=ewa_lanczos
-glsl-shader="path/to/shader/PixelClipper.glsl"
+glsl-shader="path/to/shader/PixelClipper_12tap.glsl"
 ```
-The example above uses "sinc2" because it's the sharpest option, but feel free to change this into a different filter if you prefer a softer result.
 
 ## Inputs
 You can set the following parameters:
