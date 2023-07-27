@@ -37,22 +37,58 @@ vec4 hook() {
 	vec2 fp = floor(pp);
 	pp -= fp;
 
+    // vec4 a = PREKERNEL_tex(vec2((fp + vec2(-1.5, -0.5)) * PREKERNEL_pt));
+    vec4 b = PREKERNEL_tex(vec2((fp + vec2(0.5, -0.5)) * PREKERNEL_pt));
+    vec4 c = PREKERNEL_tex(vec2((fp + vec2(1.5, -0.5)) * PREKERNEL_pt));
+    // vec4 d = PREKERNEL_tex(vec2((fp + vec2(2.5, -0.5)) * PREKERNEL_pt));
+    vec4 e = PREKERNEL_tex(vec2((fp + vec2(-0.5, 0.5)) * PREKERNEL_pt));
     vec4 f = PREKERNEL_tex(vec2((fp + vec2( 0.5, 0.5)) * PREKERNEL_pt));
     vec4 g = PREKERNEL_tex(vec2((fp + vec2( 1.5, 0.5)) * PREKERNEL_pt));
+    vec4 h = PREKERNEL_tex(vec2((fp + vec2( 2.5, 0.5)) * PREKERNEL_pt));
+    vec4 i = PREKERNEL_tex(vec2((fp + vec2(-0.5, 1.5)) * PREKERNEL_pt));
     vec4 j = PREKERNEL_tex(vec2((fp + vec2( 0.5, 1.5)) * PREKERNEL_pt));
     vec4 k = PREKERNEL_tex(vec2((fp + vec2( 1.5, 1.5)) * PREKERNEL_pt));
+    vec4 l = PREKERNEL_tex(vec2((fp + vec2( 2.5, 1.5)) * PREKERNEL_pt));
+    // vec4 m = PREKERNEL_tex(vec2((fp + vec2(-1.5, 2.5) ) * PREKERNEL_pt));
+    vec4 n = PREKERNEL_tex(vec2((fp + vec2(0.5, 2.5) ) * PREKERNEL_pt));
+    vec4 o = PREKERNEL_tex(vec2((fp + vec2(1.5, 2.5) ) * PREKERNEL_pt));
+    // vec4 p = PREKERNEL_tex(vec2((fp + vec2(2.5, 2.5) ) * PREKERNEL_pt));
 
     vec4 min_pix = vec4(1e8);
+    // min_pix = min(min_pix, a);
+    min_pix = min(min_pix, b);
+    min_pix = min(min_pix, c);
+    // min_pix = min(min_pix, d);
+    min_pix = min(min_pix, e);
     min_pix = min(min_pix, f);
     min_pix = min(min_pix, g);
+    min_pix = min(min_pix, h);
+    min_pix = min(min_pix, i);
     min_pix = min(min_pix, j);
     min_pix = min(min_pix, k);
+    min_pix = min(min_pix, l);
+    // min_pix = min(min_pix, m);
+    min_pix = min(min_pix, n);
+    min_pix = min(min_pix, o);
+    // min_pix = min(min_pix, p);
 
     vec4 max_pix = vec4(1e-8);
+    // max_pix = max(max_pix, a);
+    max_pix = max(max_pix, b);
+    max_pix = max(max_pix, c);
+    // max_pix = max(max_pix, d);
+    max_pix = max(max_pix, e);
     max_pix = max(max_pix, f);
     max_pix = max(max_pix, g);
+    max_pix = max(max_pix, h);
+    max_pix = max(max_pix, i);
     max_pix = max(max_pix, j);
     max_pix = max(max_pix, k);
+    max_pix = max(max_pix, l);
+    // max_pix = max(max_pix, m);
+    max_pix = max(max_pix, n);
+    max_pix = max(max_pix, o);
+    // max_pix = max(max_pix, p);
 
     //Sample current high-res pixel
     vec4 hr_pix = POSTKERNEL_texOff(0.0);
