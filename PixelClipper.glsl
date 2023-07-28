@@ -20,18 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//!PARAM strength
-//!DESC Clipping Strength
-//!TYPE float
-//!MINIMUM 0.0
-//!MAXIMUM 1.0
-1.0
-
 //!HOOK POSTKERNEL
 //!BIND POSTKERNEL
 //!BIND PREKERNEL
 //!DESC Pixel Clipper (Anti-Ringing)
 //!WHEN POSTKERNEL.w PREKERNEL.w / 1.000 > POSTKERNEL.h PREKERNEL.h / 1.000 > *
+
+const float strength = 1.0;
+
 vec4 hook() {
 	vec2 pp = PREKERNEL_pos * PREKERNEL_size - vec2(0.5);
 	vec2 fp = floor(pp);
