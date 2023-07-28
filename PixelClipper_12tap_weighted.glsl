@@ -27,10 +27,19 @@
 //!WHEN POSTKERNEL.w PREKERNEL.w / 1.000 > POSTKERNEL.h PREKERNEL.h / 1.000 > *
 
 const float strength = 1.0;
+const float distance_coeff = 0.2;
+
+float comp_wd(vec2 distance) {
+    return exp(-distance_coeff * (distance.x * distance.x + distance.y * distance.y));
+}
 
 vec4 hook() {
+    //Sample current high-res pixel
+    vec4 hr_pix = POSTKERNEL_texOff(0.0);
+
     vec2 pp = PREKERNEL_pos * PREKERNEL_size - vec2(0.5);
     vec2 fp = floor(pp);
+    pp -= fp;
 
     vec4 b = PREKERNEL_tex(vec2((fp + vec2(0.5, -0.5)) * PREKERNEL_pt));
     vec4 c = PREKERNEL_tex(vec2((fp + vec2(1.5, -0.5)) * PREKERNEL_pt));
@@ -46,35 +55,32 @@ vec4 hook() {
     vec4 o = PREKERNEL_tex(vec2((fp + vec2(1.5, 2.5) ) * PREKERNEL_pt));
 
     vec4 min_pix = vec4(1e8);
-    min_pix = min(min_pix, b);
-    min_pix = min(min_pix, c);
-    min_pix = min(min_pix, e);
-    min_pix = min(min_pix, f);
-    min_pix = min(min_pix, g);
-    min_pix = min(min_pix, h);
-    min_pix = min(min_pix, i);
-    min_pix = min(min_pix, j);
-    min_pix = min(min_pix, k);
-    min_pix = min(min_pix, l);
-    min_pix = min(min_pix, n);
-    min_pix = min(min_pix, o);
+    min_pix = min(min_pix, mix(hr_pix, b, comp_wd(vec2( 0.0,-1.0) - pp)));
+    min_pix = min(min_pix, mix(hr_pix, c, comp_wd(vec2( 1.0,-1.0) - pp)));
+    min_pix = min(min_pix, mix(hr_pix, e, comp_wd(vec2(-1.0, 0.0) - pp)));
+    min_pix = min(min_pix, mix(hr_pix, f, comp_wd(vec2( 0.0, 0.0) - pp)));
+    min_pix = min(min_pix, mix(hr_pix, g, comp_wd(vec2( 1.0, 0.0) - pp)));
+    min_pix = min(min_pix, mix(hr_pix, h, comp_wd(vec2( 2.0, 0.0) - pp)));
+    min_pix = min(min_pix, mix(hr_pix, i, comp_wd(vec2(-1.0, 1.0) - pp)));
+    min_pix = min(min_pix, mix(hr_pix, j, comp_wd(vec2( 0.0, 1.0) - pp)));
+    min_pix = min(min_pix, mix(hr_pix, k, comp_wd(vec2( 1.0, 1.0) - pp)));
+    min_pix = min(min_pix, mix(hr_pix, l, comp_wd(vec2( 2.0, 1.0) - pp)));
+    min_pix = min(min_pix, mix(hr_pix, n, comp_wd(vec2( 0.0, 2.0) - pp)));
+    min_pix = min(min_pix, mix(hr_pix, o, comp_wd(vec2( 1.0, 2.0) - pp)));
 
     vec4 max_pix = vec4(1e-8);
-    max_pix = max(max_pix, b);
-    max_pix = max(max_pix, c);
-    max_pix = max(max_pix, e);
-    max_pix = max(max_pix, f);
-    max_pix = max(max_pix, g);
-    max_pix = max(max_pix, h);
-    max_pix = max(max_pix, i);
-    max_pix = max(max_pix, j);
-    max_pix = max(max_pix, k);
-    max_pix = max(max_pix, l);
-    max_pix = max(max_pix, n);
-    max_pix = max(max_pix, o);
-
-    //Sample current high-res pixel
-    vec4 hr_pix = POSTKERNEL_texOff(0.0);
+    max_pix = max(max_pix, mix(hr_pix, b, comp_wd(vec2( 0.0,-1.0) - pp)));
+    max_pix = max(max_pix, mix(hr_pix, c, comp_wd(vec2( 1.0,-1.0) - pp)));
+    max_pix = max(max_pix, mix(hr_pix, e, comp_wd(vec2(-1.0, 0.0) - pp)));
+    max_pix = max(max_pix, mix(hr_pix, f, comp_wd(vec2( 0.0, 0.0) - pp)));
+    max_pix = max(max_pix, mix(hr_pix, g, comp_wd(vec2( 1.0, 0.0) - pp)));
+    max_pix = max(max_pix, mix(hr_pix, h, comp_wd(vec2( 2.0, 0.0) - pp)));
+    max_pix = max(max_pix, mix(hr_pix, i, comp_wd(vec2(-1.0, 1.0) - pp)));
+    max_pix = max(max_pix, mix(hr_pix, j, comp_wd(vec2( 0.0, 1.0) - pp)));
+    max_pix = max(max_pix, mix(hr_pix, k, comp_wd(vec2( 1.0, 1.0) - pp)));
+    max_pix = max(max_pix, mix(hr_pix, l, comp_wd(vec2( 2.0, 1.0) - pp)));
+    max_pix = max(max_pix, mix(hr_pix, n, comp_wd(vec2( 0.0, 2.0) - pp)));
+    max_pix = max(max_pix, mix(hr_pix, o, comp_wd(vec2( 1.0, 2.0) - pp)));
 
     // Clamp the intensity so it doesn't ring
     vec4 clipped = clamp(hr_pix, min_pix, max_pix);

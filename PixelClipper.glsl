@@ -29,9 +29,8 @@
 const float strength = 1.0;
 
 vec4 hook() {
-	vec2 pp = PREKERNEL_pos * PREKERNEL_size - vec2(0.5);
-	vec2 fp = floor(pp);
-	pp -= fp;
+    vec2 pp = PREKERNEL_pos * PREKERNEL_size - vec2(0.5);
+    vec2 fp = floor(pp);
 
     vec4 f = PREKERNEL_tex(vec2((fp + vec2( 0.5, 0.5)) * PREKERNEL_pt));
     vec4 g = PREKERNEL_tex(vec2((fp + vec2( 1.5, 0.5)) * PREKERNEL_pt));
