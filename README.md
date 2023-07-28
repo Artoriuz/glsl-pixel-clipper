@@ -3,7 +3,8 @@
 ## Overview
 This is a simple pixel clipper for mpv. You can use it alongside resampling filters to limit the amount of ringing after resampling.
 
-~~The main difference between this and the built-in anti-ringing functionality is that this shader works with polar filters.~~ [Looks like haasn has implemented the same thing in libplacebo](https://code.videolan.org/videolan/libplacebo/-/merge_requests/504), so we don't need these shaders anymore. I'm making them compatible with `vo=gpu` to backport the functionality.
+~~The main difference between this and the built-in anti-ringing functionality is that this shader works with polar filters.~~ 
+[Looks like something similar has been implemented in libplacebo](https://code.videolan.org/videolan/libplacebo/-/merge_requests/504), so the shader shouldn't be needed anymore. I'm making them compatible with `vo=gpu` to backport the functionality.
 
 Use the 12-tap variant for any filter with radius greater than 2. 
 
