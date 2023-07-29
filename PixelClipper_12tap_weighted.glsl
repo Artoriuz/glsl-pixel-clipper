@@ -34,7 +34,7 @@ float comp_wd(vec2 distance) {
 }
 
 vec4 hook() {
-    //Sample current high-res pixel
+    // Sample current high-res pixel
     vec4 hr_pix = POSTKERNEL_texOff(0.0);
 
     vec2 pp = PREKERNEL_pos * PREKERNEL_size - vec2(0.5);

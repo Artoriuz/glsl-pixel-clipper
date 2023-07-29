@@ -49,7 +49,7 @@ vec4 hook() {
     max_pix = max(max_pix, j);
     max_pix = max(max_pix, k);
 
-    //Sample current high-res pixel
+    // Sample current high-res pixel
     vec4 hr_pix = POSTKERNEL_texOff(0.0);
 
     // Clamp the intensity so it doesn't ring
