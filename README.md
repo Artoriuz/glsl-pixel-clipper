@@ -6,7 +6,7 @@ This is a simple pixel clipper for mpv. You can use it alongside resampling filt
 ~~The main difference between this and the built-in anti-ringing functionality is that this shader works with polar filters.~~ 
 [Looks like polar AR is now supported in libplacebo](https://code.videolan.org/videolan/libplacebo/-/merge_requests/505), so these shaders shouldn't really be needed anymore.
 
-Use the 12-tap variant for any filter with radius greater than 2.
+Use the 12-tap variant for any filter with radius greater than 2 if you don't want a "cut-off" impulse response. The standard 4-tap shader is better at eliminating ringing though.
 
 You can also use an experimental weighted version that allows you to weight distant pixels differently, which is an idea salvaged from [here](https://code.videolan.org/videolan/libplacebo/-/merge_requests/505).
 
@@ -14,7 +14,7 @@ You can also use an experimental weighted version that allows you to weight dist
 Add something like this to your mpv config:
 ```c
 scale=ewa_lanczos
-glsl-shader="path/to/shader/PixelClipper_12tap.glsl"
+glsl-shader="path/to/shader/PixelClipper.glsl"
 ```
 
 ## Inputs
