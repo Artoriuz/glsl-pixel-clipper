@@ -13,7 +13,6 @@ You can also use an experimental weighted version that allows you to weight dist
 ## Instructions
 Add something like this to your mpv config:
 ```c
-scale=ewa_lanczos
 glsl-shader="path/to/shader/PixelClipper.glsl"
 ```
 
